@@ -46,7 +46,7 @@ const validate = values => {
 }
 const onSubmit = (values, { setSubmitting }) => {
     fetch('http://localhost:3001/13', {
-        method: 'PUT', // or 'POST'
+        method: 'DELETE', // or 'POST'
         headers: {
             'Content-Type': 'application/json',
         },
@@ -65,7 +65,7 @@ const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit,
         <div className="w-[20%] h-full"></div>
 
         <div className="w-[60%] h-full bg-gray-100 ">
-            <p className="mt-5 mb-5 text-3xl text-red-700 font-bold font-serif text-center">Update Mobile Phoneset Info of Your Stock</p>
+            <p className="mt-5 mb-5 text-3xl text-red-700 font-bold font-serif text-center">Delete Info Below</p>
             <div className="flex w-full h-full justify-center divide-x-2 divide-slate-500">
                 <div className="mt-1 flex flex-col w-full h-full">
                     <form onSubmit={handleSubmit}>
@@ -165,15 +165,15 @@ const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit,
 
 )
 const iValue = { brandName: '', modelName: '', price: '', config: '', image: '', inStock: '' }
-const MobileInfoUpdate = () => (
+const DeleteMobileData = () => (
     <div>
         <Formik
             initialValues={iValue}
-        //    validate={validate}
+        //  validate={validate}
             component={Form}
             onSubmit={onSubmit}
         >
         </Formik>
     </div>
 );
-export default MobileInfoUpdate;
+export default DeleteMobileData;

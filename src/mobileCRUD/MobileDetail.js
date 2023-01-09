@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import DeleteMobileData from "./DeleteData";
 import MobileCreate from "./MobileCreate";
 
 function Details({ id, brand, model, config, price, image, inStock }) {
@@ -72,7 +73,16 @@ function MobileDetail() {
                                 </button>
                             </Link>
                         </div>
-                        <div className="w-8/12"></div>
+                        <div className="w-8/12">
+                            <Link to={"/" + (idNo + "/delete")}> 
+                                <button
+                                    type="button"
+                                    onClick={<DeleteMobileData/>}
+                                    className='mt-11 w-2/12 py-4 bg-blue-800 shadow-lg shadow-teal-900/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg text-2xl font-serif hover:bg-teal-400'
+                                >Delete Data
+                                </button>
+                            </Link> 
+                        </div>
                         <div className="w-2/12">
                             <Link to={"/" + (idNo + 1)}>
                                 <button

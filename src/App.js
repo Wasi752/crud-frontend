@@ -1,4 +1,5 @@
 import { Routes, Route, Link } from "react-router-dom";
+import DeleteMobileData from "./mobileCRUD/DeleteData";
 import MobileCreate from "./mobileCRUD/MobileCreate";
 import MobileDetail from "./mobileCRUD/MobileDetail";
 import MobileList from "./mobileCRUD/MobileList";
@@ -12,6 +13,7 @@ function App() {
         <Route path="/add" element={<MobileCreate />} />
         <Route path="/:id" element={<MobileDetail />} />
         <Route path="/:id/edit" element={<MobileInfoUpdate/>} />
+        <Route path="/:id/delete" element={<DeleteMobileData/>} />
       </Routes>
     </div>
   );
