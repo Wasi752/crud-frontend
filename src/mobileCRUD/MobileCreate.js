@@ -32,6 +32,11 @@ const validate = values => {
     else if (values.config.length < 20) {
         errors.config = 'At least 20 characters';
     }
+    if (!values.inStock) {
+        errors.inStock = 'Required';
+    } else if (!/^[0-9]*$/i.test(values.inStock)){
+        errors.inStock = 'Stock must be a digit';
+    }
     if(!values.image){
         errors.image ='Required'
     }
@@ -40,7 +45,6 @@ const validate = values => {
     return errors;
 }
 const onSubmit = (values, { setSubmitting }) => {
-
         fetch('http://localhost:3001', {
             method: 'POST', // or 'PUT'
             headers: {
@@ -52,7 +56,6 @@ const onSubmit = (values, { setSubmitting }) => {
                 alert(JSON.stringify(values, null, 2))
                 setSubmitting(false);
             });
-    
 
 }
 const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting}) =>
@@ -125,6 +128,20 @@ const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit,
                         </div>
                         <div className={divClassLeft}>
                             <input
+                                type="text"
+                                name="inStock"
+                                placeholder='In Stock'
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.inStock}
+                                className={inputClass}
+                            />
+                            <span className='text-red-500'>
+                                {touched.inStock && errors.inStock}
+                            </span>
+                        </div>
+                        <div className={divClassLeft}>
+                            <input
                                 type="file"
                                 name='image'
                                 placeholder='Upload an Image'
@@ -147,7 +164,7 @@ const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit,
     </div>
 
 )
-const iValue = { brandName: '', modelName: '', price: '', config: '', image: '' }
+const iValue = { brandName: '', modelName: '', price: '', config: '', image: '', inStock: '' }
 const MobileCreate = () => (
     <div>
         <Formik
