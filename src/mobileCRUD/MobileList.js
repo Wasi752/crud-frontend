@@ -1,7 +1,7 @@
 
 function MobileList() {
   return (
-    <div className="MobileList">
+    <div className="MobileList">Subhanallah
     </div>
   );
 }

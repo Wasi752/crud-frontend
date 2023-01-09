@@ -1,7 +1,7 @@
 
 function MobileDetail() {
   return (
-    <div className="MobileDetail">
+    <div className="MobileDetail">Allahumma Lakal Hamd
     </div>
   );
 }

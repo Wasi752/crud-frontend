@@ -1,7 +1,7 @@
 
 function MobileUpdate() {
   return (
-    <div className="MobileUpdate">
+    <div className="MobileUpdate">Alhamdulillah
     </div>
   );
 }

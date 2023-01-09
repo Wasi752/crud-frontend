@@ -12,51 +12,36 @@ const validate = values => {
     if (!values.brandName) {
         errors.brandName = 'Required';
     } else if (values.brandName.length < 4) {
-        errors.brandName = 'Name must be at least 4 characters';
+        errors.brandName = 'Brand Name must be at least 4 characters';
     }
-    if (!values.email) {
-        errors.email = 'Required';
-    } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-    ) {
-        errors.email = 'Invalid email address';
+    if (!values.modelName) {
+        errors.modelName = 'Required';
+    } else if (values.modelName.length < 4) {
+        errors.modelName = 'Model Name must be at least 4 characters';
     }
-    if (!values.mobile) {
-        errors.mobile = 'Required';
+    if (!values.price) {
+        errors.price = 'Required';
+    } else if (values.price.length < 4) {
+        errors.price = 'price must be at least 4 digits';
+    } else if (!/^[0-9]*$/i.test(values.price)) {
+        errors.price = 'price must be in digits';
     }
-    else if (values.mobile.length < 11) {
-        errors.mobile = 'Mobile number is not valid';
+    if (!values.config) {
+        errors.config = 'Required';
     }
-    else if (!/^[0-9]*$/i.test(values.mobile)) {
-        errors.mobile = 'Mobile Number must be in valid formate';
+    else if (values.config.length < 20) {
+        errors.config = 'At least 20 characters';
     }
-    if (!values.password) {
-        errors.password = 'Required';
+    if(!values.image){
+        errors.image ='Required'
     }
-    else if (!/(?=.*?[A-Z])/i.test(values.password)) {
-        errors.password = 'At least one Uppercase';
-    }
-    else if (!/(?=.*?[a-z])/i.test(values.password)) {
-        errors.password = 'At least one Lowercase';
-    }
-    else if (!/(?=.*?[0-9])/i.test(values.password)) {
-        errors.password = 'At least one digit';
-    }
-    else if (!/(?=.*?[#?!@$%^&*-])/i.test(values.password)) {
-        errors.password = 'At least one Special Characters';
-    }
-    else if (!/.{8,}/i.test(values.password)) {
-        errors.password = 'At least minumum 8 characters';
-    }
-    if (values.confirmPassword !== values.password) {
-        errors.confirmPassword = 'Password dase not match';
-    }
+
     console.log(JSON.stringify(errors));
     return errors;
 }
 const onSubmit = (values, { setSubmitting }) => {
 
-        fetch('http://localhost:3001/users', {
+        fetch('http://localhost:3001', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -83,7 +68,7 @@ const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit,
                     <form onSubmit={handleSubmit}>
                         <div className={divClassLeft}>
                             <input
-                                type='text'
+                                type='name'
                                 name='brandName'
                                 placeholder='Enter Brand Name'
                                 onChange={handleChange}
@@ -97,65 +82,52 @@ const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit,
 
                         </div>
                         <div className={divClassLeft}>
-                            <label className={lableClass}>02. E-mail :</label>
                             <input
                                 type="text"
-                                name='email'
+                                name='modelName'
+                                placeholder='Model Name'
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.email}
+                                value={values.modelName}
                                 className={inputClass}
                             />
                             <span className='text-red-500'>
-                                {errors.email && touched.email && errors.email}
+                                {touched.modelName && errors.modelName}
                             </span>
                         </div>
                         <div className={divClassLeft}>
-                            <label className={lableClass}>03. Mobile Number :</label>
                             <input
                                 type="text"
-                                name='mobile'
+                                name='price'
+                                placeholder='Price'
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.mobile}
+                                value={values.price}
                                 className={inputClass}
                             />
                             <span className='text-red-500'>
-                                {errors.mobile && touched.mobile && errors.mobile}
+                                {touched.price && errors.price}
                             </span>
                         </div>
                         <div className={divClassLeft}>
-                            <label className={lableClass}>04. Password :</label>
                             <input
-                                type="password"
-                                name="password"
+                                type="text"
+                                name="config"
+                                placeholder='Configaration'
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.password}
+                                value={values.config}
                                 className={inputClass}
                             />
                             <span className='text-red-500'>
-                                {errors.password && touched.password && errors.password}
+                                {touched.config && errors.config}
                             </span>
                         </div>
                         <div className={divClassLeft}>
-                            <label className={lableClass}>05. Confirm Password :</label>
-                            <input
-                                type="password"
-                                name='confirmPassword'
-                                value={values.confirmPassword}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                className={inputClass} />
-                            <span className='text-red-500'>
-                                {errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}
-                            </span>
-                        </div>
-                        <div className={divClassLeft}>
-                            <label className={lableClass}>06. Image :</label>
                             <input
                                 type="file"
                                 name='image'
+                                placeholder='Upload an Image'
                                 onChange={handleChange}
                                 className={inputClass} />
                         </div>

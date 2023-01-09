@@ -1,4 +1,8 @@
 import { Routes, Route, Link } from "react-router-dom";
+import MobileCreate from "./mobileCRUD/MobileCreate";
+import MobileDetail from "./mobileCRUD/MobileDetail";
+import MobileList from "./mobileCRUD/MobileList";
+import MobileUpdate from "./mobileCRUD/MobileUpdate";
 
 function App() {
   return (
