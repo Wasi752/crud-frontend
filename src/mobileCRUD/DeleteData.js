@@ -45,7 +45,7 @@ const validate = values => {
     return errors;
 }
 const onSubmit = (values, { setSubmitting }) => {
-    fetch('http://localhost:3001/13', {
+    fetch('http://localhost:3001/14', {
         method: 'DELETE', // or 'POST'
         headers: {
             'Content-Type': 'application/json',

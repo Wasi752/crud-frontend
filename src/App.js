@@ -12,7 +12,7 @@ function App() {
         <Route path="/" element={<MobileList />} />
         <Route path="/add" element={<MobileCreate />} />
         <Route path="/:id" element={<MobileDetail />} />
-        <Route path="/:id/edit" element={<MobileInfoUpdate/>} />
+        <Route path="/:menu/edit" element={<MobileInfoUpdate/>} />
         <Route path="/:id/delete" element={<DeleteMobileData/>} />
       </Routes>
     </div>
