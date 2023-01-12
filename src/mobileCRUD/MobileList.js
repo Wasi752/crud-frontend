@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import DeleteMobileData from "./DeleteData";
 
 function MList({ id, brand, model, price, config, image, inStock }) {
     return (
@@ -16,9 +15,6 @@ function MList({ id, brand, model, price, config, image, inStock }) {
                     <td className={design}>{inStock}</td>
                     <td className="border-2 border-blue-500 w-2/12 h-2/6 py-4 font-bold text-red-500 text-2xl text-center hover:text-blue-800 ">
                         <Link to={"/" + id}>Details</Link>
-                    </td>
-                    <td className="border-2 border-blue-500 w-2/12 h-2/6 py-4 font-bold text-red-500 text-2xl text-center hover:text-blue-800 ">
-                        Delete
                     </td>
                 </tr>
             </table>
@@ -64,7 +60,6 @@ function MobileList() {
                         <th className={design2}>Price</th>
                         <th className={design2}>In Stock</th>
                         <th className={design2}>Details</th>
-                        <th className={design2}>Delete</th>
                     </tr>
                 </table>
                 {stock}

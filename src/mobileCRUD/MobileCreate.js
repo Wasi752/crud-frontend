@@ -1,64 +1,39 @@
 
 import React from 'react';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { useNavigate } from "react-router-dom";
+
 
 const inputClass = "h-[10%] w-[50%] p-4 border border-blue-300 rounded-md m-1";
 const lableClass = "ml-0 pr-2 mt-5 text-xl font-bold";
 const divClassRight = "flex flex-col w-full h-full ml-40";
 const divClassLeft = "flex flex-col w-full h-full ml-72";
 
-const validate = values => {
-    const errors = {};
-    if (!values.brandName) {
-        errors.brandName = 'Required';
-    } else if (values.brandName.length < 4) {
-        errors.brandName = 'Brand Name must be at least 4 characters';
-    }
-    if (!values.modelName) {
-        errors.modelName = 'Required';
-    } else if (values.modelName.length < 4) {
-        errors.modelName = 'Model Name must be at least 4 characters';
-    }
-    if (!values.price) {
-        errors.price = 'Required';
-    } else if (values.price.length < 4) {
-        errors.price = 'price must be at least 4 digits';
-    } else if (!/^[0-9]*$/i.test(values.price)) {
-        errors.price = 'price must be in digits';
-    }
-    if (!values.config) {
-        errors.config = 'Required';
-    }
-    else if (values.config.length < 20) {
-        errors.config = 'At least 20 characters';
-    }
-    if (!values.inStock) {
-        errors.inStock = 'Required';
-    } else if (!/^[0-9]*$/i.test(values.inStock)){
-        errors.inStock = 'Stock must be a digit';
-    }
-    if(!values.image){
-        errors.image ='Required'
-    }
+const MobileSchema = Yup.object().shape({
+    brandName: Yup.string()
+        .min(4, 'Brand Name must be at least 4 characters')
+        .max(50, 'Too Long!')
+        .required('Required'),
+    modelName: Yup.string()
+        .min(4, 'Model Name must be at least 4 characters')
+        .max(50, 'Too Long!')
+        .required('Required'),
+    price: Yup.number()
+        .min(1000, 'Price must be at least 1000')
+        .max(1000000, 'Too Long!')
+        .required('Required'),
+    inStock: Yup.number()
+        .min(1, 'Stock must be at least 1')
+        .max(1000, 'Too Long!')
+        .required('Required'),
+    config: Yup.string()
+        .min(20, 'Configuration must be at least 20 characters')
+        .max(50, 'Too Long!')
+        .required('Required'),
+});
 
-    console.log(JSON.stringify(errors));
-    return errors;
-}
-const onSubmit = (values, { setSubmitting }) => {
-        fetch('http://localhost:3001', {
-            method: 'POST', // or 'PUT'
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(values),
-        })
-            .then((response) => {
-                alert(JSON.stringify(values, null, 2))
-                setSubmitting(false);
-            });
-
-}
-const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting}) =>
+const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) =>
 
 (
     <div className="w-full h-full flex mt-20 mb-56">
@@ -165,16 +140,32 @@ const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit,
 
 )
 const iValue = { brandName: '', modelName: '', price: '', config: '', image: '', inStock: '' }
-const MobileCreate = () => (
-    <div>
-        <Formik
-            initialValues={iValue}
-            validate={validate}
-            component={Form}
-            onSubmit={onSubmit}
-        >
-        </Formik>
-    </div>
-);
+const MobileCreate = () => {
+    const navigate = useNavigate();
+    const onSubmit = (values, { setSubmitting }) => {
+        fetch('http://localhost:3001', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+        })
+            .then((response) => {
+                navigate('/');
+            });
+
+    }
+    return (
+        <div>
+            <Formik
+                initialValues={iValue}
+                validationSchema={MobileSchema}
+                component={Form}
+                onSubmit={onSubmit}
+            >
+            </Formik>
+        </div>
+    );
+};
 
 export default MobileCreate;

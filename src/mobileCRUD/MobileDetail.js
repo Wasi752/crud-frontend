@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import DeleteMobileData from "./DeleteData";
-import MobileCreate from "./MobileCreate";
+import { useNavigate } from "react-router-dom";
+
 
 function Details({ id, brand, model, config, price, image, inStock }) {
     const c = "text-2xl text-left mt-3";
@@ -32,12 +32,23 @@ function MobileDetail() {
     const [mobile, setMobile] = useState("");
     const [pageNo, setPageNo] = useState(1);
     const [image, setImage] = useState();
+    const navigate = useNavigate();
 
+
+    const deleteData = () => {
+        fetch('http://localhost:3001/' + id, {
+            method: 'DELETE'
+        })
+            .then((response) => {
+                navigate("/");
+            });
+
+    }
     useEffect(() => {
-        fetch('http://localhost:3001')
+        fetch('http://localhost:3001/' + id)
             .then((response) => response.json())
-            .then((data) => {
-                const a = data.filter((d) => d.id === idNo)[0];
+            .then((a) => {
+                console.log(a);
                 setMobile(
                     <Details
                         id={a.id}
@@ -49,9 +60,7 @@ function MobileDetail() {
                         image={a.image}
                     />
                 )
-                const b = data.filter((d) => d.id === idNo)
-                    .map(x => x.image);
-                setImage(b);
+                setImage(a.image);
             });
     }, [pageNo, idNo]);
 
@@ -74,14 +83,12 @@ function MobileDetail() {
                             </Link>
                         </div>
                         <div className="w-8/12">
-                            <Link to={"/" + (idNo + "/delete")}> 
-                                <button
-                                    type="button"
-                                    onClick={<DeleteMobileData/>}
-                                    className='mt-11 w-2/12 py-4 bg-blue-800 shadow-lg shadow-teal-900/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg text-2xl font-serif hover:bg-teal-400'
-                                >Delete Data
-                                </button>
-                            </Link> 
+                            <button
+                                type="button"
+                                onClick={deleteData}
+                                className='mt-11 w-2/12 py-4 bg-blue-800 shadow-lg shadow-teal-900/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg text-2xl font-serif hover:bg-teal-400'
+                            >Delete Data
+                            </button>
                         </div>
                         <div className="w-2/12">
                             <Link to={"/" + (idNo + 1)}>
