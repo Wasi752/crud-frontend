@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 
 const inputClass = "h-[10%] w-[50%] p-4 border border-blue-300 rounded-md m-1";
-const lableClass = "ml-0 pr-2 mt-5 text-xl font-bold";
 const divClassRight = "flex flex-col w-full h-full ml-40";
 const divClassLeft = "flex flex-col w-full h-full ml-72";
 
@@ -144,7 +143,7 @@ const MobileCreate = () => {
     const navigate = useNavigate();
     const onSubmit = (values, { setSubmitting }) => {
         fetch('http://localhost:3001', {
-            method: 'POST', // or 'PUT'
+            method: 'POST', 
             headers: {
                 'Content-Type': 'application/json',
             },

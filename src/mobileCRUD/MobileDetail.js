@@ -48,7 +48,6 @@ function MobileDetail() {
         fetch('http://localhost:3001/' + id)
             .then((response) => response.json())
             .then((a) => {
-                console.log(a);
                 setMobile(
                     <Details
                         id={a.id}

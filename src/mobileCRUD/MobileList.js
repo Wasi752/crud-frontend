@@ -27,8 +27,7 @@ const design2 = 'border-2 border-blue-500 w-2/12 h-2/6 py-4 font-bold text-3xl f
 
 function MobileList() {
     const [stock, setStock] = useState("");
-    const { menu } = useParams();
-    const id = parseInt(menu);
+    const { id } = useParams();
 
     useEffect(() => {
         fetch('http://localhost:3001')
